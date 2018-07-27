@@ -1,0 +1,46 @@
+
+body {
+    background-color: #eee;
+    font: helvetica;
+}
+
+#container {
+    width: 500px;
+    background-color: #fff;
+    margin: 30px auto;
+    padding: 30px;
+    border-radius: 5px;
+}
+
+.green {
+    font-weight: bold;
+    color: green;
+}
+
+.message {
+    margin-bottom: 10px;
+}
+
+label {
+    width: 90px;
+    display: inline-block;
+}
+
+input {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+form {
+    line-height: 160%;
+}
+
+.hide {
+    display: none;
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+    font-weight: bold;
+}

@@ -1,48 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.rabbit</groupId>
-	<artifactId>validation-sample</artifactId>
+	<groupId>com.rabbit.samples</groupId>
+	<artifactId>spring-validation</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>validation-sample</name>
+	<name>spring-validation</name>
 	<description>Spring-Validation sample project</description>
+	<url>https://github.com/bygui86/spring-validation</url>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.3.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+	<contributors>
+		<contributor>
+			<name>Matteo Baiguini</name>
+			<url>https://github.com/bygui86</url>
+		</contributor>
+	</contributors>
+
+	<developers>
+		<developer>
+			<name>Matteo Baiguini</name>
+			<url>https://github.com/bygui86</url>
+		</developer>
+	</developers>
 
 	<properties>
+		<!-- general -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+
+		<!-- java -->
+		<java-source.version>1.8</java-source.version>
+		<java-target.version>1.8</java-target.version>
+
+		<!-- maven -->
+		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+
+		<!-- spring -->
+		<spring-boot.version>2.0.2.RELEASE</spring-boot.version>
+
+		<!-- logging -->
+		<slf4.version>1.7.25</slf4.version>
+
+		<!-- others -->
+		<lombok.version>1.18.0</lombok.version>
 	</properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<!-- spring -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
+		<!-- spring -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
 		</dependency>
 
+		<!-- validation -->
+		<!-- INCLUDES:
+			. org.apache.tomcat.embed > tomcat-embed-el
+			. org.hibernate.validator > hibernate-validator
+				.. javax.validation > validation-api
+                .. org.jboss.logging > jboss-logging
+                .. com.fasterxml > classmate
+			 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<!-- FOR NOW USING ONLY -->
+		<!--<dependency>-->
+		<!--<groupId>javax.validation</groupId>-->
+		<!--<artifactId>validation-api</artifactId>-->
+		<!--<version>${javax-validation.version}</version>-->
+		<!--</dependency>-->
+
+		<!-- JSTL for JSP -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		<!-- Need this to compile JSP -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Need this to compile JSP,
+			tomcat-embed-jasper version is not working, no idea why -->
+		<dependency>
+			<groupId>org.eclipse.jdt.core.compiler</groupId>
+			<artifactId>ecj</artifactId>
+			<version>4.6.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Optional, test for static content, bootstrap CSS-->
+		<!--<dependency>-->
+		<!--<groupId>org.webjars</groupId>-->
+		<!--<artifactId>bootstrap</artifactId>-->
+		<!--<version>3.3.7</version>-->
+		<!--</dependency>-->
+
+		<!-- logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4.version}</version>
+		</dependency>
+
+		<!-- others -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- testing -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -51,13 +156,65 @@
 	</dependencies>
 
 	<build>
+		<!-- general -->
+		<finalName>${project.artifactId}</finalName>
+
+		<!-- plugins -->
 		<plugins>
+			<!-- compiler -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<fork>true</fork>
+					<source>${java-source.version}</source>
+					<target>${java-target.version}</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+
+			<!-- spring-boot -->
+			<!-- see https://docs.spring.io/spring-boot/docs/2.0.3.RELEASE/maven-plugin/run-mojo.html#jvmArguments -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build-info</goal>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							<!-- Additional info added to Actuator info -->
+							<additionalProperties>
+								<java.source>${java-source.version}</java.source>
+								<java.target>${java-target.version}</java.target>
+								<encoding>${project.build.sourceEncoding}</encoding>
+							</additionalProperties>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
-	</build>
 
+		<!-- PLEASE NOTE: usage of properties not allowed, probably a bug in JenkinsX -->
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.8.2</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 
 </project>
