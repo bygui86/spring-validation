@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "0a649283-5262-4da7-8c41-7e9da2a3a96d",
+		"name": "VALIDATION__JAVA-BEAN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post user - valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5ba8270a-2be6-4a31-b6c7-dbb916ab88e8",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"tests[\"200 OK\"] = responseCode.code === 200;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"john doe\",\n\t\"working\": true,\n\t\"aboutMe\": \"i'm still fighting for a place in this world\",\n\t\"age\": 42,\n\t\"email\": \"john@doe.org\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post user - email not valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f0449aa6-7b1c-4a1f-a91a-d9b60bbf04f4",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"tests[\"400 BAD REQUEST\"] = responseCode.code === 400;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"john doe\",\n\t\"working\": true,\n\t\"aboutMe\": \"i'm still fighting for a place in this world\",\n\t\"age\": 42,\n\t\"email\": \"johndoe.org\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post user - age not valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4d8dec35-f57a-46e0-aee9-a75acc0cc2f4",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"tests[\"400 BAD REQUEST\"] = responseCode.code === 400;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"john doe\",\n\t\"working\": true,\n\t\"aboutMe\": \"i'm still fighting for a place in this world\",\n\t\"age\": 17,\n\t\"email\": \"john@doe.org\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post user - aboutme valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "996b8dd2-9114-4993-8f38-079b69339de1",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"tests[\"400 BAD REQUEST\"] = responseCode.code === 400;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"john doe\",\n\t\"working\": true,\n\t\"aboutMe\": \"i'm john\",\n\t\"age\": 42,\n\t\"email\": \"john@doe.org\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
