@@ -1,11 +1,12 @@
 {
 	"info": {
 		"_postman_id": "0a649283-5262-4da7-8c41-7e9da2a3a96d",
-		"name": "VALIDATION__JAVA-BEAN",
+		"name": "SPRING-VALIDATION__TEST",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
+			"_postman_id": "582b10d1-1967-4dd4-93f1-cbc6c6c0def4",
 			"name": "Post user - valid",
 			"event": [
 				{
@@ -55,6 +56,7 @@
 			"response": []
 		},
 		{
+			"_postman_id": "73e51ef9-8fd4-4e42-a1f6-dc8de9badf3f",
 			"name": "Post user - email not valid",
 			"event": [
 				{
@@ -104,6 +106,7 @@
 			"response": []
 		},
 		{
+			"_postman_id": "8b27a4b0-d21e-42f4-9c64-59b257bc762b",
 			"name": "Post user - age not valid",
 			"event": [
 				{
@@ -153,6 +156,7 @@
 			"response": []
 		},
 		{
+			"_postman_id": "c4ffcca8-8cfa-4dab-a192-063127337022",
 			"name": "Post user - aboutme valid",
 			"event": [
 				{
