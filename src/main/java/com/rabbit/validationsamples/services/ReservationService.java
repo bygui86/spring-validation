@@ -121,7 +121,7 @@ public class ReservationService {
 	 * @param id
 	 */
 	@ValidReservationConstraint
-	// @Valid
+	// PLEASE NOTE: Seems that @Valid works just for parameters and not for returning objects
 	public ReservationDto getReservationById_ok(final String id) {
 
 		return ReservationDto.builder()
